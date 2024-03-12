@@ -59,7 +59,6 @@ elseif input1 = "help" Or input1 = "Help" then
   TextWindow.WriteLine("Toram - Displays Total Ram Installed On System In Mb")
   TextWindow.WriteLine("Size - Displays Size Of Specified Path")
   TextWindow.WriteLine("User - Displays Current User")
-  TextWindow.WriteLine("Tetris - Closes TerminalOS And Runs A Game Of Tetris")
   TextWindow.WriteLine("Shutpc - Shuts Your Computer Down")
   TextWindow.WriteLine("Deepsleep - Puts You Computer In Sleep Fully. Takes 30 Second")
   TextWindow.WriteLine("Advshut - Shuts Your Computer Down With A Specified Time And Message")
