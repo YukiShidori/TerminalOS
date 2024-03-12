@@ -199,9 +199,6 @@ elseif input1 = "User" Or input1 = "user" Then
   goto start2
   
   
-elseif input1 = "tetris" Or input1 = "Tetris" then
-  SPProcess.Start(smalltermdir + "\tetris.exe")
-  ESLCurrentProcess.KillProcess()
   
 elseif input1 = "shutpc" Or input1 = "Shutpc" then 
   SPGeneral.Shutdown()
