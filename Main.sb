@@ -1,0 +1,231 @@
+TextWindow.Title = "SmallTerminal"
+smalltermdir= Program.Directory
+start:
+TextWindow.Clear()
+start2:
+title2 = File.ReadLine(smalltermdir + "\title.txt" , 1)
+TextWindow.Title = title2
+TextWindow.ForegroundColor = "DarkGray"
+TextWindow.Write(">")
+TextWindow.CursorLeft = 2
+TextWindow.ForegroundColor = "Gray"
+input1 = TextWindow.Read()
+If input1 = "nano" Or input1 = "Nano" Then
+  TextWindow.Write("Path: ")
+  TextWindow.CursorLeft = 6
+  path1 = TextWindow.Read()
+  TextWindow.Clear()
+  lineg:
+  nano1 = File.ReadContents(path1)
+  TextWindow.Clear()
+  TextWindow.WriteLine(nano1)
+  TextWindow.Write("Line: ")
+  TextWindow.CursorLeft = 6
+  line1 = TextWindow.Read()
+  If line1 = "exit" Then
+    Goto start
+  Else
+    TextWindow.Clear()
+    TextWindow.WriteLine(nano1)
+    text1 = TextWindow.Read()
+    File.WriteLine(path1 , line1 , text1)
+    Goto lineg
+  EndIf
+ElseIf input1 = "time" Or input1 = "Time" then
+  time1=IOClock.Time()
+  time2=IOClock.Date()
+  TextWindow.WriteLine("Time: "+time1)
+  TextWindow.WriteLine("Date: "+time2)
+  goto start2
+elseif input1 = "help" Or input1 = "Help" then
+  TextWindow.WriteLine("Help - Displays This Helpfull Message")
+  TextWindow.WriteLine("Nano - A Text Editor That Creates And Modifies Files")
+  TextWindow.WriteLine("Time - Displays The Current Time")
+  TextWindow.WriteLine("Cls - Clears The Current Terminal Window")
+  TextWindow.WriteLine("Calc - Calculates Math Equations For You")
+  TextWindow.WriteLine("Del - Deletes The Specified File")
+  TextWindow.WriteLine("Text-Bin - Converts Text To Binary")
+  TextWindow.WriteLine("Bin-Text - Converts Binary To Text")
+  TextWindow.WriteLine("Getclip - Displays Current Text Attached To Clipboard")
+  TextWindow.WriteLine("Clip - Sets Clipboard Text")
+  TextWindow.WriteLine("Restart - Restarts SmallTerminal")
+  TextWindow.WriteLine("Shutdown - Shuts SmallTerminal Down")
+  TextWindow.WriteLine("Title - Allows The Function Of Changing The Title")
+  TextWindow.WriteLine("Run - Runs A Program From The Path Provided")
+  TextWindow.WriteLine("Rename - Renames A File In Specified Directory")
+  TextWindow.WriteLine("Google - Googles Your Input")
+  TextWindow.WriteLine("Youtube - Searches Your Input On Youtube")
+  TextWindow.WriteLine("Dict - Gets Dictionary Definition Of Inputted Word")
+  TextWindow.WriteLine("Toram - Displays Total Ram Installed On System In Mb")
+  TextWindow.WriteLine("Size - Displays Size Of Specified Path")
+  TextWindow.WriteLine("User - Displays Current User")
+  TextWindow.WriteLine("Tetris - Closes TerminalOS And Runs A Game Of Tetris")
+  TextWindow.WriteLine("Shutpc - Shuts Your Computer Down")
+  TextWindow.WriteLine("Deepsleep - Puts You Computer In Sleep Fully. Takes 30 Second")
+  TextWindow.WriteLine("Advshut - Shuts Your Computer Down With A Specified Time And Message")
+  Goto start2
+  
+elseif input1 = "cls" Or input1 = "Cls" then
+  Goto start
+elseIf input1 = "calc" Or input1 = "Calc" then
+  TextWindow.Write("Number1: ")
+  Num1= TextWindow.Read()
+  TextWindow.Write("Number2: ")
+  Num2= TextWindow.Read()
+  calc1= Num1+Num2
+  calc2= Num1-Num2
+  calc3= Num1/Num2
+  calc4= Num1*Num2
+  TextWindow.WriteLine("Addition: "+calc1)
+  TextWindow.WriteLine("Subtraction: "+calc2)
+  TextWindow.WriteLine("Division: "+calc3)
+  TextWindow.WriteLine("Multiplication: "+calc4)
+  Goto start2
+  
+elseif input1 = "del" Or "Del" Then
+  TextWindow.Write("Path: ")
+  TextWindow.CursorLeft=6
+  delpath= TextWindow.Read()
+  File.DeleteFile(delpath)
+  Goto start2
+  
+elseif input1 = "bin-text" Or "Bin-Text" then
+  TextWindow.Write("Binary: ")
+  TextWindow.CursorLeft=8
+  bin1= TextWindow.Read()
+  bintext1= SPExtra.ConvertBinaryToText(bin1)
+  TextWindow.WriteLine(bintext1)
+  Goto start2
+elseif input1 = "text-bin" Or "Text-Bin" then
+  TextWindow.Write("Text: ")
+  TextWindow.CursorLeft=6
+  bintext2= TextWindow.Read()
+  bin2= SPExtra.ConvertTextToBinary(bintext2)
+  TextWindow.WriteLine(bin2)
+  Goto start2
+  
+elseif input1 = "clip" Or "Clip" then
+  TextWindow.Write("Text: ")
+  TextWindow.CursorLeft=6
+  text2= TextWindow.Read()
+  FCClipboard.SetText(text2)
+  Goto start2
+  
+elseif input1 = "getclip" Or "Getclip" then
+  getclip1= FCClipboard.GetText()
+  TextWindow.WriteLine(getclip1)
+  Goto start2
+  
+elseif input1 = "restart" Or input1 = "Restart" then
+  SPProcess.Start(smalltermdir + "\main.exe")
+  ESLCurrentProcess.KillProcess()
+  
+elseif input1 = "shutdown" Or input1 = "Shutdown" then
+  ESLCurrentProcess.KillProcess()
+  
+elseif input1 = "title" Or input1 = "Title" then 
+  TextWindow.Write("Title: ")
+  TextWindow.CursorLeft=7
+  title = TextWindow.Read()
+  File.WriteLine(smalltermdir + "\title.txt" , 1 , title)
+  Goto start2
+  
+  
+elseif input1 = "run" Or input1 = "Run" then
+  TextWindow.Write("Program Path: ")
+  TextWindow.CursorLeft=14
+  run1 = TextWindow.Read()
+  SPProcess.Start(run1)
+  Goto start2
+  
+  
+elseif input1 = "rename" Or input1 = "Rename" then
+  TextWindow.Write("Path:")
+  TextWindow.CursorLeft=6
+  renpath1 = TextWindow.Read()
+  TextWindow.Write("New Name:")
+  TextWindow.CursorLeft=10
+  renname1 = TextWindow.Read()
+  SPFile.RenameFile(renpath1 , renname1)
+  Goto start2
+  
+  
+elseif input1 = "google" Or "Google" then
+  TextWindow.Write("Text:")
+  TextWindow.CursorLeft=6
+  google1 = TextWindow.Read()
+  google2 = SPNetwork.SearchGoogle(google1)
+  TextWindow.WriteLine(google2)
+  TextWindow.WriteLine("Copied To Clipboard")
+  LDClipboard.SetText(google2)
+  Goto start2
+  
+  
+elseif input1 = "youtube" Or input1 = "Youtube" then
+  TextWindow.Write("Text:")
+  TextWindow.CursorLeft=6
+  youtube1 = TextWindow.Read()
+  youtube2 = SPNetwork.SearchYoutube(youtube1)
+  TextWindow.WriteLine(youtube2)
+  TextWindow.WriteLine("Copied To Clipboard")
+  LDClipboard.SetText(youtube2)
+  Goto start2
+  
+elseif input1 = "dict" Or input1 = "Dict" Then
+  TextWindow.Write("Word: ")
+  TextWindow.CursorLeft=6
+  dict1 = TextWindow.Read()
+  dict2 = LDDictionary.GetDefinition(dict1)
+  TextWindow.WriteLine(dict2)
+  Goto start2
+  
+  
+ElseIf input1 = "toram" Or input1 = "Toram" Then
+  ram1 = SPWindows.TotalRAMinMB
+  TextWindow.WriteLine("Ram: "+ ram1)
+  goto start2
+  
+ElseIf input1 = "size" Or input1 = "Size" Then
+  TextWindow.Write("Path:")
+  TextWindow.CursorLeft=6
+  path2 = TextWindow.Read()
+  size1 = LDFile.Size(path2)
+  TextWindow.WriteLine("Size: " + size1)
+  goto start2
+  
+elseif input1 = "User" Or input1 = "user" Then
+  user1 = LDFile.UserName
+  TextWindow.WriteLine(user1)
+  goto start2
+  
+  
+elseif input1 = "tetris" Or input1 = "Tetris" then
+  SPProcess.Start(smalltermdir + "\tetris.exe")
+  ESLCurrentProcess.KillProcess()
+  
+elseif input1 = "shutpc" Or input1 = "Shutpc" then 
+  SPGeneral.Shutdown()
+  
+elseif input1 = "deepsleep" Or input1 = "Deepsleep" then
+  SPGeneral.DeepSleep()
+  
+elseif inpuut1 = "advshut" Or input1 = "Advshut" then
+  TextWindow.Write("Time(Ms): ")
+  TextWindow.CursorLeft=10
+  shuttime= TextWindow.Read()
+  TextWindow.Write("Message: ")
+  TextWindow.CursorLeft=9
+  shutmes= TextWindow.Read()
+  SPGeneral.AdvancedShutdown(shuttime , shutmes)
+  
+  
+  
+  
+  
+  
+Else
+  TextWindow.ForegroundColor="Red"
+  TextWindow.WriteLine(input1 +" Not Recognised As A Internal Function. For A List Of All Available Commands Type 'help'")
+  
+  Goto start2
+EndIf
